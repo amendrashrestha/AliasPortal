@@ -2,6 +2,7 @@
 .pyc
 .sav
 .xml
+.DS_Store
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
