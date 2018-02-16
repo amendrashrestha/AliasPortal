@@ -20,7 +20,7 @@ $(document).ready(function() {
 //                if (data.pred_class == 1){
 //                    $("#pred_result").text("Diff User");
 //                }
-                if(data.same_user_prob <= 85){
+                if(data.diff_user_prob > 85){
                     $('#pred_result').css('color', '#0B6FBB');
                     $("#pred_result").text("Olika författare");
                     $("#same_user_prob").show();
@@ -34,13 +34,17 @@ $(document).ready(function() {
                 }
                 else if(data.error_msg){
                     $('#pred_result').css('color', '#C70039');
+                    $('#pred_result').css('font-size', '120%');
                     $("#pred_result").text(data.error_msg);
                     $("#same_user_prob").hide();
                     $("#diff_user_prob").hide();
                     $("#lang").hide();
                 }
                 else{
+                    $('#pred_result').css('color', '#FF5733');
                     $("#pred_result").text("Vet ej");
+                    $("#same_user_prob").show();
+                    $("#diff_user_prob").show();
                 }
 
                 $("#same_user_prob").text("Samma författare: "+ data.same_user_prob + "%")
