@@ -279,7 +279,7 @@ def pos_header():
     return header_wo_punct
 
 def get_function_words(filepath):
-    with open(filepath, 'r') as f:
+    with open(filepath, 'r', encoding='utf-8') as f:
         functions = [x.strip() for x in f.readlines()]
 
         for i in range(0, len(functions)):
@@ -325,18 +325,18 @@ def get_list_files(dir_path):
     return glob.glob(dir_path)
 
 def create_file_with_header(filepath, features):
-    with open(filepath, 'a') as outtsv:
+    with open(filepath, 'a' , encoding='utf-8') as outtsv:
         features = '\t'.join(features)
         outtsv.write(features)
         outtsv.write("\n")
 
 def write_in_file(filepath, features):
-    with open(filepath, "a", encoding='utf-8') as text_file:
+    with open(filepath, 'a', encoding='utf-8') as text_file:
         for item in features:
             text_file.write(str(item))
             text_file.write("\t")
         text_file.write("\n")
 
 def read_text_file(filepath):
-    with open(filepath, 'r') as content:
+    with open(filepath, 'r', encoding='utf-8') as content:
         return content.readlines()
