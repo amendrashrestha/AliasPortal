@@ -13,7 +13,6 @@ from sklearn.externals import joblib
 
 import string
 
-# sys.path.append(os.path.join(os.environ['HOME'] , 'repo/AliasSensor/AliasPortal/'))
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 sys.path.append(APP_ROOT)
@@ -299,6 +298,7 @@ def get_function_words(filepath):
     return functions
 
 def return_swe_result(x_test):
+    # rf = joblib.load(os.path.join(APP_ROOT, 'static/model/swe_cal_rf_finalized_model.sav'))
     rf = joblib.load('static/model/swe_cal_rf_finalized_model.sav')
     # rf = joblib.load(props.swedish_cal_rf_model_filename)
     predicted_test_scores = rf.predict_proba(x_test)
@@ -310,6 +310,7 @@ def return_swe_result(x_test):
     return same_user_prob, diff_user_prob
 
 def return_eng_result(x_test):
+    # rf = joblib.load(os.path.join(APP_ROOT, 'static/model/eng_cal_rf_finalized_model.sav'))
     rf = joblib.load('static/model/eng_cal_rf_finalized_model.sav')
     # rf = joblib.load(props.english_cal_rf_model_filename)
     predicted_test_scores = rf.predict_proba(x_test)

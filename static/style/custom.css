@@ -12,6 +12,7 @@ body {
 
 .navbar{
     float: right;
+    color: #581845;
 }
 
 .footer {
@@ -58,7 +59,7 @@ body {
 
 #pred_result {
     padding: 11px;
-    font-size: 150%;
+    font-size: 130%;
     font-family: courier;
     color: DodgerBlue;
     text-align: center;

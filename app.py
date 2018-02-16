@@ -20,13 +20,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('index.html')
 
-
-@app.route("/predict")
+@app.route("/predict", methods=['POST'])
 def predict():
-    text1 = request.args.get('text1').strip()
-    text2 = request.args.get('text2').strip()
+    text1 = request.form['text1'].strip()
+    text2 = request.form['text2'].strip()
+
+    # print(text1)
 
     len_text1 = len(text1)
     len_text2 = len(text2)
@@ -53,6 +54,12 @@ def predict():
 
             same_user_prob, diff_user_prob = IO.return_eng_result(x_test)
 
+            return jsonify(
+            same_user_prob = same_user_prob,
+            diff_user_prob = diff_user_prob,
+            lang = text1_lang
+            )
+
         elif text1_lang == text2_lang == "sv":
             fv_dataframe = IO.create_swedish_feature_vector(text1, text2)
 
@@ -64,19 +71,21 @@ def predict():
 
             same_user_prob, diff_user_prob = IO.return_swe_result(x_test)
 
-        else:
-            return jsonify(error_msg = "Språk ej identifierbart")
-
-        return jsonify(
+            return jsonify(
             same_user_prob = same_user_prob,
             diff_user_prob = diff_user_prob,
             lang = text1_lang
-        )
+            )
+
+        else:
+            return jsonify(error_msg = "Språk ej identifierbart")
 
     except Exception:
         traceback.print_exc()
         return jsonify(error_msg = "Ett fel har uppstått")
 
+    return render_template('index.html')
+
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)

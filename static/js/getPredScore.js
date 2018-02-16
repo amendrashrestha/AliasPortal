@@ -12,7 +12,7 @@ $(document).ready(function() {
     });
 
     $('button#calculate').bind('click', function() {
-        $.getJSON('/predict', {
+        $.post('/predict', {
                 text1: $('textarea[name="text1"]').val(),
                 text2: $('textarea[name="text2"]').val()
             }, function(data) {
@@ -21,19 +21,19 @@ $(document).ready(function() {
 //                    $("#pred_result").text("Diff User");
 //                }
                 if(data.same_user_prob <= 85){
-                    $('#pred_result').css('color', 'blue');
+                    $('#pred_result').css('color', '#0B6FBB');
                     $("#pred_result").text("Olika författare");
                     $("#same_user_prob").show();
                     $("#diff_user_prob").show();
                 }
                 else if(data.same_user_prob > 85){
-                    $('#pred_result').css('color', 'green');
+                    $('#pred_result').css('color', '#0BBB90');
                     $("#pred_result").text("Samma författare");
                     $("#same_user_prob").show();
                     $("#diff_user_prob").show();
                 }
                 else if(data.error_msg){
-                    $('#pred_result').css('color', 'red');
+                    $('#pred_result').css('color', '#C70039');
                     $("#pred_result").text(data.error_msg);
                     $("#same_user_prob").hide();
                     $("#diff_user_prob").hide();
