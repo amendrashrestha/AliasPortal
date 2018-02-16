@@ -3,6 +3,7 @@
 .sav
 .xml
 .DS_Store
+__pycache__
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
