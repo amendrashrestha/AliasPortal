@@ -1,0 +1,7 @@
+Flask==0.12.2
+nltk==3.2.1
+tqdm==4.14.0
+pandas==0.20.3
+langdetect==1.0.6
+numpy==1.14.1
+scikit_learn==0.19.1

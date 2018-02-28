@@ -9,6 +9,13 @@ import glob
 import tqdm
 import sys
 
+import smtplib
+from smtplib import SMTPException
+from email.mime.multipart import MIMEMultipart
+
+from email.mime.text import MIMEText
+import email.utils
+
 from sklearn.externals import joblib
 
 import string
@@ -340,3 +347,53 @@ def write_in_file(filepath, features):
 def read_text_file(filepath):
     with open(filepath, 'r') as content:
         return content.readlines()
+
+def send_email():
+    MYFULLNAME = "MAPSTER_LISA"
+    MYEMAILADDRESSS = ["aminshrestha@gmail.com","amendra.shrestha@it.uu.se"]
+    MYEMAILADDRESSS = ", ".join(MYEMAILADDRESSS)
+    msg = MIMEMultipart('alternative')
+
+    fromaddr = 'lisa.mapster@gmail.com'
+
+    # Create the message
+    text = "Alert !!\nTwitter Crawler is crashed\n Please re-run the crawler."
+    html = """\
+    <html>
+      <head></head>
+      <body>
+        <p><b>Alert!</b><br>
+           Twitter Crawler is crashed<br>
+           Please re-run the crawler.
+        </p>
+      </body>
+    </html>
+    """
+
+    part1 = MIMEText(text, 'plain')
+    part2 = MIMEText(html, 'html')
+
+    msg.attach(part1)
+    msg.attach(part2)
+
+    # msg = MIMEText('Huston! <b> We have a problem in crawler...</b> Please re-run it..')
+    msg['To'] = email.utils.formataddr((MYFULLNAME,
+                                    MYEMAILADDRESSS))
+    msg['From'] = email.utils.formataddr(('MAPSTER',
+                                     fromaddr))
+
+    msg['Subject'] = 'LISA Crawler Crashed'
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.ehlo()
+    server.starttls()
+    server.login(fromaddr, "mapster2018")
+    server.set_debuglevel(False)  # show communication with the server
+    try:
+        server.sendmail('mapster.lisa@gmail.com', [MYEMAILADDRESSS], msg.as_string())
+
+    except SMTPException as e:
+        print(e)
+
+    finally:
+        server.quit()
