@@ -295,10 +295,10 @@ def get_function_words(filepath):
             elif len(re.findall('\(', functions[i])) == 0 and len(re.findall('\)', functions[i])) == 1:
                 functions[i] = functions[i].replace(')', '\)')
             if functions[i].endswith('*'):
-                functions[i] = functions[i].replace('-*', '\\w*')
+                functions[i] = functions[i].replace('*', '\\w*')
                 functions[i] = '\\b' + functions[i]
             elif functions[i].startswith('*'):
-                functions[i] = functions[i].replace('*-', '\\w*')
+                functions[i] = functions[i].replace('*', '\\w*')
                 functions[i] = '\\b' + functions[i]
             else:
                 functions[i] = '\\b' + functions[i] + '\\b'

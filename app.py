@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 
 import pandas as pd
 import traceback
@@ -21,6 +21,11 @@ app = Flask(__name__)
 @app.route('/')
 def home():
     return render_template('index.html')
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(APP_ROOT, 'static/images/'),
+                          'favicon.ico',mimetype='image/vnd.microsoft.icon')
 
 @app.route("/predict", methods=['POST'])
 def predict():
