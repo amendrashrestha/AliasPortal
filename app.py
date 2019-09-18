@@ -43,7 +43,7 @@ def predict():
             text1_lang = detect(text1)
             text2_lang = detect(text2)
         else:
-            return jsonify(error_msg="Texten är för kort för att bedömmas (minst 160 tecken)")
+            return jsonify(error_msg="Texten är för kort för att bedömas (minst 160 tecken)")
     except Exception:
         return jsonify(error_msg = "Skriv in en text")
 
@@ -93,4 +93,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', port=8081, debug=False)
